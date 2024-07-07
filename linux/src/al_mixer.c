@@ -41,8 +41,8 @@
 
 #include "arch/interface/interface_sound.h"
 
-#define MIN(a,b) ((a) < (b) ? (a) : (b))
-#define MAX(a,b) ((a) > (b) ? (a) : (b))
+#define min(a,b) ((a) < (b) ? (a) : (b))
+#define max(a,b) ((a) > (b) ? (a) : (b))
 
 /*
  * The mixing function checks this variable for equality with AL_TRUE.  When
@@ -523,7 +523,7 @@ static void _alDestroyMixSource( void *ms )
 	{
 		int ri;
 
-		ri = MIN(src->bid_queue.read_index, src->bid_queue.size - 1);
+		ri = min(src->bid_queue.read_index, src->bid_queue.size - 1);
 
 		assert( ri >= 0 );
 		assert( ri < src->bid_queue.size );

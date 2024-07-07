@@ -83,8 +83,8 @@
 #include "alc/alc_context.h"
 #include "alc/alc_speaker.h"
 
-#define MIN(a,b) (((a) < (b)) ? (a) : (b))
-#define MAX(a,b) (((a) < (b)) ? (b) : (a))
+#define min(a,b) (((a) < (b)) ? (a) : (b))
+#define max(a,b) (((a) < (b)) ? (b) : (a))
 
 #define MIN_PITCH 0.25f
 
@@ -1127,8 +1127,8 @@ void alf_tdoppler( ALuint cid,
 	}
 #endif
 
-	src->mixrate = MAX(src->mixrate, MIN_PITCH);
-	src->mixrate = MIN(src->mixrate, 2.0f);
+	src->mixrate = max(src->mixrate, MIN_PITCH);
+	src->mixrate = min(src->mixrate, 2.0f);
 
 	return;
 }
@@ -1457,8 +1457,8 @@ void alf_tpitch( UNUSED(ALuint cid),
 				finalsample = lrintf(firstsample +
 				            frac * (nextsample - firstsample));
 
-				finalsample = MIN(finalsample, canon_max);
-				bufptr[j] =   MAX(finalsample, canon_min);
+				finalsample = min(finalsample, canon_max);
+				bufptr[j] =   max(finalsample, canon_min);
 			}
 #else
 			{
@@ -1473,8 +1473,8 @@ void alf_tpitch( UNUSED(ALuint cid),
 				finalsample = firstsample +
 				            frac * (nextsample - firstsample);
 
-				finalsample = MIN(finalsample, canon_max);
-				bufptr[j] =   MAX(finalsample, canon_min);
+				finalsample = min(finalsample, canon_max);
+				bufptr[j] =   max(finalsample, canon_min);
 			}
 #endif
 		}
@@ -1581,8 +1581,8 @@ void alf_tpitch( UNUSED(ALuint cid),
 	/*
 	 * if pitch is out of range, clamp.
 	 */
-	pitch = MIN(pitch, 2.0f);
-	pitch = MAX(pitch, MIN_PITCH);
+	pitch = min(pitch, 2.0f);
+	pitch = max(pitch, MIN_PITCH);
 
 	/*
 	 *  We need len in samples, not bytes.
@@ -1658,8 +1658,8 @@ void alf_tpitch( UNUSED(ALuint cid),
 				finalsample = firstsample +
 				            frac * (nextsample - firstsample);
 
-				finalsample = MIN(finalsample, canon_max);
-				bufptr[j] =   MAX(finalsample, canon_min);
+				finalsample = min(finalsample, canon_max);
+				bufptr[j] =   max(finalsample, canon_min);
 			}
 		}
 

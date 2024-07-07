@@ -146,7 +146,8 @@ void *grab_write_native(void)
 {
     _ALhandle *alh;
     ALpv params[2];
-    int i, res;
+    size_t i;
+    int res;
 
     _alBlitBuffer = native_blitbuffer;
 
@@ -239,7 +240,8 @@ void native_blitbuffer(void *handle,
     _ALhandle *alh = (_ALhandle *)handle;
     int sample_width = (alh->output[0].sampleWidth / 8);
     int frame_size = sample_width * alh->output[0].numChannels;
-    int frames_to_write, frame_no, i;
+    int frames_to_write, frame_no;
+    size_t i;
     char **buf, *ptr;
 
     if (alh->numOutputPorts == 1)
@@ -295,7 +297,7 @@ void release_native(void *handle)
 {
     _ALhandle *alh = (_ALhandle *)handle;
     ALpv params;
-    int i;
+    size_t i;
 
     if (alh->output[0].config != NULL) {
         alFreeConfig(alh->output[0].config);
@@ -347,7 +349,7 @@ void pause_nativedevice(void *handle)
 {
     _ALhandle *alh = (_ALhandle *)handle;
     ALpv params;
-    int i;
+    size_t i;
 
     params.param = AL_RATE;
     params.value.i = 0;
@@ -366,7 +368,7 @@ void resume_nativedevice(void *handle)
 {
     _ALhandle *alh = (_ALhandle *)handle;
     ALpv params;
-    int i;
+    size_t i;
 
     if (alh->numOutputPorts > 1)
         sync_ports(handle);
@@ -405,7 +407,8 @@ ALboolean set_write_native(void *handle,
     ALuint channels = _al_ALCHANNELS(*fmt);
     unsigned int data_format;
     ALpv params[2];
-    int i, result;
+    size_t i;
+    int result;
 
     if (alh->output[0]._numChannels_avail >= channels)
         alh->numOutputPorts = 1;
@@ -542,7 +545,7 @@ static void check_sync(void *handle)
     int need_sync = 0;
     stamp_t buf_delta_msc;
     stamp_t ref_delta_msc;
-    int i;
+    size_t i;
 
     if (alh->numOutputPorts == 1)
         return;
@@ -583,7 +586,7 @@ static void sync_ports(void *handle)
     stamp_t msc[MAX_DEVICES];
     stamp_t ust[MAX_DEVICES];
     int corrected;
-    int i;
+    size_t i;
 
     /*
      * Get UST/MSC (time & sample frame number) pairs for the
